@@ -82,7 +82,6 @@ class HangManGame:
             
     def run(self):
         self._get_random_word()
-        print(self.current_total_guess)
         while self._round <= 12 and not self._win:
             self._do_a_round()
             self._round += 1
