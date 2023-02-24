@@ -5,13 +5,13 @@ class HangManGame:
 
     def __init__(self, word_file_rel_path: str =  os.path.join('..', 'resources/words.txt')):
         self._word = ''
-        self.guesses = []
         self._round = 0
         self._word_file_rel_path = word_file_rel_path
+        self._win = None
+        self.guesses = []
         self.current_guess = ''
         self.current_total_guess = ''
-        self._win = None
-
+        
     def _get_random_word(self):
         file_path = os.path.join(os.path.dirname(__file__), self._word_file_rel_path)
         with open(file_path) as file:

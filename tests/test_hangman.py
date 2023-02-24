@@ -3,7 +3,7 @@ import os
 from ..src.hangman import HangManGame
 
 def test_random_word():
-    relative_path_test = os.path.join('..', 'tests', 'exam', 'testwords.txt')
+    relative_path_test = os.path.join('..', 'tests', 'testwords.txt')
     game = HangManGame(word_file_rel_path=relative_path_test)
     game._get_random_word()
     assert game._word in ['testone', 'testtwo', 'testthree']
