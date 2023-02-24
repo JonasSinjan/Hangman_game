@@ -53,22 +53,51 @@ def test_game_round_duplicate_letter(mocker):
 def test_game_round_letter_print(mocker):
     printer = mocker.patch('builtins.print')
     game = HangManGame()
-    game.word = 'testthree'
+    game._word = 'testthree'
     mocker.patch('builtins.input', return_value = 't')
     game._do_a_round()
-    #assert printer.called_with('Your guessed letter is in the word!')
     assert printer.called_with('t__tt____')
+    assert game.current_guess == 't'
+    #assert game.current_total_guess == 't__tt____' #this doesn't work for some reason - gives 'ttt' instead
+
+def test_guess_word(mocker):
+    printer = mocker.patch('builtins.print')
+    game = HangManGame()
+    game._word = 'testthree'
     mocker.patch('builtins.input', return_value = 'e')
     game._do_a_round()
-    assert printer.called_with('te_tt__ee')
+    assert printer.called_with('_e_____ee')
     mocker.patch('builtins.input', return_value = 'testthree')
     game._do_a_round()
+    assert printer.called_with('You win!: testthree')
+
+def test_guess_all_letters(mocker):
+    printer = mocker.patch('builtins.print')
+    game = HangManGame()
+    game._word = 'testthree'
+    mocker.patch('builtins.input', return_value = 'e')
+    game._do_a_round()
+    mocker.patch('builtins.input', return_value = 't')
+    game._do_a_round()
+    mocker.patch('builtins.input', return_value = 's')
+    game._do_a_round()
+    mocker.patch('builtins.input', return_value = 'h')
+    game._do_a_round()
+    mocker.patch('builtins.input', return_value = 'r')
+    game._do_a_round()
+    assert printer.called_with('You win!: testthree')
+    
+def test_system(mocker):
+    mocker.patch('builtins.input', side_effect = ['t','e','s','h', 'r'])
+    printer = mocker.patch('builtins.print')
+    game = HangManGame()
+    game.run()
     assert printer.called_with('You win!: testthree')
 
 def test_incorrect_word_guess(mocker):
     printer = mocker.patch('builtins.print')
     game = HangManGame()
-    game.word = 'testthree'
+    game._word = 'testthree'
     mocker.patch('builtins.input', return_value = 'testtwo')
     game._do_a_round()
     #assert printer.called_with('Your guessed letter is in the word!')

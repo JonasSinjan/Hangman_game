@@ -16,4 +16,8 @@ Nested if else in the _do_round method is not good.
 
 Did Edit and Pray for the case where the user enters a letter that has already been guessed and therefore doesn't count as a round.
 
+Missing report summary.
+
+Seem to be failing successfully with the: _make_new_current_total_guess
+
 Jonas Sinjan.
