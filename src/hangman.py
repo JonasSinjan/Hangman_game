@@ -93,7 +93,7 @@ class HangManGame:
             self._do_a_round()
             self._round += 1
         if self._round > 12:
-            print("Game has ended")
+            print("Game has ended, exceeded round limit of 12.")
 
 if __name__ == '__main__':
 

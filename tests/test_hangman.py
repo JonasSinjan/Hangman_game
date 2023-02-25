@@ -88,14 +88,6 @@ def test_guess_all_letters(mocker):
     game._do_a_round()
     printer.assert_called_with('You win! Word: TESTTHREE')
 
-    # assert game._word == 'testthreet'
-# def test_system(mocker):
-#     mocker.patch('builtins.input', side_effect = ['t','e','s','h', 'r'])
-#     printer = mocker.patch('builtins.print')
-#     game = HangManGame()
-#     game.run()
-#     printer.assert_called_with('You win!: testthree')
-
 def test_incorrect_word_guess(mocker):
     printer = mocker.patch('builtins.print')
     game = HangManGame()
