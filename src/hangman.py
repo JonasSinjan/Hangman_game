@@ -24,7 +24,7 @@ class HangManGame:
         
     def _check_guess_is_character(self):
         if not self.current_guess.isalpha():
-            raise(RuntimeError)
+            raise ValueError('Guess must be a character')
         
     def _guess_is_letter(self):
         if len(self.current_guess) == 1:
@@ -54,10 +54,10 @@ class HangManGame:
         
     def _check_if_new_guess_wins(self):
         if self.current_total_guess == self._word:
-            print('You win!: ', self.current_total_guess)
+            print(f'You wins! x: {self.current_total_guess}')
             self._win = True
         else:
-            print(self.current_total_guess)
+            print(f"{self.current_total_guess}")
 
     def _make_guess_with_letter(self):
         self.guesses.append(self.current_guess)
@@ -66,17 +66,18 @@ class HangManGame:
             self._make_new_current_total_guess()
             self._check_if_new_guess_wins()
         else:
-            print('Try again: ', self.current_total_guess)
+            print(f'Try again:')
 
     def _do_a_round(self):
         self._get_guess()
         self._check_guess_is_character()
         if self._guess_is_word():
             if self._word == self.current_guess:
-                print("You win! ", self.current_total_guess)
+                print(f"You win! Word: {self.current_guess}")
                 self._win = True
             else:
                 print("Game has ended")
+                self._round = 14
         elif self._guess_is_letter():
             self._make_guess_with_letter()
             
@@ -86,7 +87,7 @@ class HangManGame:
             self._do_a_round()
             self._round += 1
         if self._round > 12:
-            print("Game has ended, too many rounds")
+            print("Game has ended")
 
 if __name__ == '__main__':
 

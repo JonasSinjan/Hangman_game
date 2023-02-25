@@ -18,6 +18,8 @@ Did Edit and Pray for the case where the user enters a letter that has already b
 
 Missing report summary.
 
-Seem to be failing successfully with the: _make_new_current_total_guess
+Found Bug: if incorect word guessed, game end message appears, but game doesn't end.
+
+printer.assert_called_with seems to have problems with the underscores. It's return value is missing any underscore
 
 Jonas Sinjan.
