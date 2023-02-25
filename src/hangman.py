@@ -20,7 +20,10 @@ class HangManGame:
         words = [word.strip('\n') for word in words]
         random_slice = randint(0,len(words)-1)
         self._word = words[random_slice]
+
+    def _print_blank_word(self):
         self.current_total_guess = '_' * len(self._word)
+        print(f"{self.current_total_guess.upper()}")
         
     def _check_guess_is_character(self):
         if not self.current_guess.isalpha():
@@ -54,10 +57,10 @@ class HangManGame:
         
     def _check_if_new_guess_wins(self):
         if self.current_total_guess == self._word:
-            print(f'You wins! x: {self.current_total_guess}')
+            print(f'You win! Word: {self.current_total_guess.upper()}')
             self._end_game = True
         else:
-            print(f"{self.current_total_guess}")
+            print(f"{self.current_total_guess.upper()}")
 
     def _make_guess_with_letter(self):
         self.guesses.append(self.current_guess)
@@ -66,22 +69,26 @@ class HangManGame:
             self._make_new_current_total_guess()
             self._check_if_new_guess_wins()
         else:
-            print(f'Try again:')
+             print(f'{self.current_total_guess.upper()}')
+
+    def _make_guess_with_word(self):
+        if self._word == self.current_guess:
+                print(f"You win! Word: {self.current_guess.upper()}")
+        else:
+                print("Game has ended")
+        self._end_game = True
 
     def _do_a_round(self):
         self._get_guess()
         self._check_guess_is_character()
         if self._guess_is_word():
-            if self._word == self.current_guess:
-                print(f"You win! Word: {self.current_guess}")
-            else:
-                print("Game has ended")
-            self._end_game = True
+            self._make_guess_with_word()
         elif self._guess_is_letter():
             self._make_guess_with_letter()
             
     def run(self):
         self._get_random_word()
+        self._print_blank_word()
         while self._round <= 12 and not self._end_game:
             self._do_a_round()
             self._round += 1

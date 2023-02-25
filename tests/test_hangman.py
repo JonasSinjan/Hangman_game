@@ -7,6 +7,7 @@ def test_random_word():
     game = HangManGame(word_file_rel_path=relative_path_test)
     game._get_random_word()
     assert game._word in ['testone', 'testtwo', 'testthree']
+    game._print_blank_word()
     assert game.current_total_guess == '_' * len(game._word)
 
 def test_error_if_guess_not_a_character(mocker):
@@ -47,7 +48,6 @@ def test_game_round_duplicate_letter(mocker):
     game._do_a_round()
     mocker.patch('builtins.input', return_value = 'T')
     game._do_a_round()
-    printer.assert_called_with('Try again:')
     assert game.guesses == ['t']
 
 def test_game_round_letter_print(mocker):
@@ -64,28 +64,30 @@ def test_guess_word(mocker):
     printer = mocker.patch('builtins.print')
     game = HangManGame()
     game._word = 'testthree'
-    mocker.patch('builtins.input', return_value = 'e')
-    game._do_a_round()
+    # mocker.patch('builtins.input', return_value = 'e')
+    # game._do_a_round()
     #printer.assert_called_with('_e_____ee')
     mocker.patch('builtins.input', return_value = 'testthree')
     game._do_a_round()
-    printer.assert_called_with('You win! Word: testthree')
+    printer.assert_called_with('You win! Word: TESTTHREE')
 
-# def test_guess_all_letters(mocker):
-#     printer = mocker.patch('builtins.print')
-#     game = HangManGame()
-#     game._word = 'testthree'
-#     mocker.patch('builtins.input', return_value = 'e')
-#     game._do_a_round()
-#     mocker.patch('builtins.input', return_value = 't')
-#     game._do_a_round()
-#     mocker.patch('builtins.input', return_value = 's')
-#     game._do_a_round()
-#     mocker.patch('builtins.input', return_value = 'h')
-#     game._do_a_round()
-#     mocker.patch('builtins.input', return_value = 'r')
-#     game._do_a_round()
-#     printer.assert_called_with('You win! x: testthree')
+def test_guess_all_letters(mocker):
+    printer = mocker.patch('builtins.print')
+    game = HangManGame()
+    game._word = 'testthree'
+    game._print_blank_word()
+    mocker.patch('builtins.input', return_value = 't')
+    game._do_a_round()
+    mocker.patch('builtins.input', return_value = 'e')
+    game._do_a_round()
+    mocker.patch('builtins.input', return_value = 's')
+    game._do_a_round()
+    mocker.patch('builtins.input', return_value = 'h')
+    game._do_a_round()
+    mocker.patch('builtins.input', return_value = 'r')
+    game._do_a_round()
+    printer.assert_called_with('You win! Word: TESTTHREE')
+
     # assert game._word == 'testthreet'
 # def test_system(mocker):
 #     mocker.patch('builtins.input', side_effect = ['t','e','s','h', 'r'])
