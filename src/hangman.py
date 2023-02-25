@@ -7,7 +7,7 @@ class HangManGame:
         self._word = ''
         self._round = 0
         self._word_file_rel_path = word_file_rel_path
-        self._win = None
+        self._end_game = False
         self.guesses = []
         self.current_guess = ''
         self.current_total_guess = ''
@@ -55,7 +55,7 @@ class HangManGame:
     def _check_if_new_guess_wins(self):
         if self.current_total_guess == self._word:
             print(f'You wins! x: {self.current_total_guess}')
-            self._win = True
+            self._end_game = True
         else:
             print(f"{self.current_total_guess}")
 
@@ -74,16 +74,15 @@ class HangManGame:
         if self._guess_is_word():
             if self._word == self.current_guess:
                 print(f"You win! Word: {self.current_guess}")
-                self._win = True
             else:
                 print("Game has ended")
-                self._round = 14
+            self._end_game = True
         elif self._guess_is_letter():
             self._make_guess_with_letter()
             
     def run(self):
         self._get_random_word()
-        while self._round <= 12 and not self._win:
+        while self._round <= 12 and not self._end_game:
             self._do_a_round()
             self._round += 1
         if self._round > 12:
