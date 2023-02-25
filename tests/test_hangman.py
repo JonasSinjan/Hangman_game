@@ -39,6 +39,7 @@ def test_game_round_word_fail(mocker):
     mocker.patch('builtins.input', return_value = 'test')
     printer = mocker.patch('builtins.print')
     game._do_a_round()
+    game._game_not_ended()
     printer.assert_called_with('Game has ended')
 
 def test_game_round_duplicate_letter(mocker):
@@ -56,17 +57,13 @@ def test_game_round_letter_print(mocker):
     game._word = 'testthree'
     mocker.patch('builtins.input', return_value = 't')
     game._do_a_round()
-    #printer.assert_called_with('t__tt____')
     assert game.current_guess == 't'
-    #assert game.current_total_guess == 't__tt____' #this doesn't work for some reason - gives 'ttt' instead
+    #printer.assert_called_with('t__tt____') #this doesn't work for some reason - gives 'ttt' instead
 
 def test_guess_word(mocker):
     printer = mocker.patch('builtins.print')
     game = HangManGame()
     game._word = 'testthree'
-    # mocker.patch('builtins.input', return_value = 'e')
-    # game._do_a_round()
-    #printer.assert_called_with('_e_____ee')
     mocker.patch('builtins.input', return_value = 'testthree')
     game._do_a_round()
     printer.assert_called_with('You win! Word: TESTTHREE')
@@ -87,15 +84,6 @@ def test_guess_all_letters(mocker):
     mocker.patch('builtins.input', return_value = 'r')
     game._do_a_round()
     printer.assert_called_with('You win! Word: TESTTHREE')
-
-def test_incorrect_word_guess(mocker):
-    printer = mocker.patch('builtins.print')
-    game = HangManGame()
-    game._word = 'testthree'
-    mocker.patch('builtins.input', return_value = 'testtwo')
-    game._do_a_round()
-    #printer.assert_called_with('Your guessed letter is in the word!')
-    printer.assert_called_with('Game has ended')
 
 def test_run(mocker):
     printer = mocker.patch('builtins.print')

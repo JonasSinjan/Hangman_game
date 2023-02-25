@@ -68,8 +68,6 @@ class HangManGame:
     def _make_guess_with_word(self):
         if self._word == self.current_guess:
                 print(f"You win! Word: {self.current_guess.upper()}")
-        else:
-                print("Game has ended")
         self._end_game = True
 
     def _do_a_round(self):
@@ -79,15 +77,23 @@ class HangManGame:
             self._make_guess_with_word()
         elif self._guess_is_letter():
             self._make_guess_with_letter()
-            
+
+    def _game_not_ended(self):
+        if self._end_game:
+            print("Game has ended")
+            return False
+        elif self._round > 12:
+            print("Game has ended, exceeded round limit of 12.")
+            return False
+        else:
+            return True
+        
     def run(self):
         self._get_random_word()
         self._print_blank_word()
-        while self._round <= 12 and not self._end_game:
+        while self._game_not_ended():
             self._do_a_round()
             self._round += 1
-        if self._round > 12:
-            print("Game has ended, exceeded round limit of 12.")
 
 if __name__ == '__main__':
 

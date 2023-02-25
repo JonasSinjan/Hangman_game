@@ -6,20 +6,16 @@ I know I have essentially used one huge class.
 
 This I would try to split up, into the game, and a class for the logger to print to the user.
 
-I might also separatae the reading of the words from the file, since that is only done once, and therefore the _word_file_rel_path attribute is only ever used once.
+I might also separate the reading of the words from the file, since that is only done once, and therefore the _word_file_rel_path attribute is only ever used once.
 
 I would now also do type hints. Since I only did one.
 
 Also I am not happy that half the attrs are private and half are not.
 
-Nested if else in the _do_round method is not good.
-
-Did Edit and Pray for the case where the user enters a letter that has already been guessed and therefore doesn't count as a round.
-
 Missing report summary.
 
-Found Bug: if incorect word guessed, game end message appears, but game doesn't end.
-
 printer.assert_called_with seems to have problems with the underscores. It's return value is missing any underscore
+
+Don't know how to create a mocker that has several return values.
 
 Jonas Sinjan.
