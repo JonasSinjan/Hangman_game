@@ -30,16 +30,10 @@ class HangManGame:
             raise ValueError('Guess must be a character')
         
     def _guess_is_letter(self):
-        if len(self.current_guess) == 1:
-            return True
-        else:
-            return False
+        return bool(len(self.current_guess) == 1)
         
     def _guess_is_word(self):
-        if len(self.current_guess) > 1:
-            return True
-        else:
-            return False
+        return bool(len(self.current_guess) > 1)
         
     def _get_guess(self):
         self.current_guess = input("Make your next guess: ").lower()
